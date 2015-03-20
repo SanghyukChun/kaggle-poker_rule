@@ -1,4 +1,4 @@
-is_submit = 0;
+is_submit = 1;
 fileID = fopen('submission.csv','w');
 fprintf(fileID, 'id,hand\n');
 [ trD, trL, teD, teL ] = getdata( is_submit );
