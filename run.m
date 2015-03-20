@@ -1,13 +1,15 @@
 is_submit = 0;
+fileID = fopen('submission.csv','w');
+fprintf(fileID, 'id,hand\n');
 [ trD, trL, teD, teL ] = getdata( is_submit );
-[ trD, teD ] = proprocessing( trD, teD );
+[ trD, U ] = preprocessing( trD, [] );
 
-% find class using knn algorithm
-est = knnclassify(teD, trD, trL, 6, 'cosine');
-
-if ~is_submit
-    % print accuracy of your algorithm
-    disp(['Accuracy: ' num2str(accuracy(est, teL))]);
-else
-    writesubmission(est);
+teN = size(teD,1);
+for i=1:teN
+    % find class using knn algorithm
+    x = preprocessing(teD(i,:),U);
+    est = knnclassify(x, trD, trL, 6, 'cosine');
+    fprintf(fileID,'%d,%d\n',i,est);
+    disp([num2str(i) '/' num2str(teN)]);
 end
+fclose(fileID);
