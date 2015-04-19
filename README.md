@@ -16,4 +16,8 @@ repository for poker rule induction in kaggle
 * Feature Extraction: Use only rank and sort them
 * Learning Algorithm: 1-NN
 * Comment:
-  1. This idea is extremly easy but very powerful. Need to verify why this feature is powerful.
+  1. This idea is extremly easy but very powerful. ~~Need to verify why this feature is powerful.~~ It is because, in real poker rule,
+suit of card is not main criteria. Even if we ignore suit of cards and order of cards, we only lose Flush and Royal flush which is relatively very small than other hands.
+Then possible permutation of cards are only ( 13 choose 5 - 13 ) = 1274. Subtracting 13 is required because there are only 4 same ranks.
+However number of training data is more than 25,000. Therefore, with high probability, we can observe whole card permutations if we consider rank of cards only.
+It is also why 1-NN is powerful while 3-NN or 4-NN get worse performance than 1-NN. With high probability, we can choose exactly same card permutations in training set.
